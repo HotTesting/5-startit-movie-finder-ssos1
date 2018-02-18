@@ -16,6 +16,7 @@ describe('Movie card ', async function(){
     });
 
     it('should open appropriate "movie details" page, after click on "name" field', async function(){
+        browser.manage().timeouts().implicitlyWait(3000);
         let movieCardTitles = $$('movie-card a');
         let movieDetailsTitle = $('div:nth-child(1) > div.col-md-8 > h2');
         let titleOnHomePage;
@@ -23,8 +24,8 @@ describe('Movie card ', async function(){
         await browser.get('/');
         titleOnHomePage = await movieCardTitles.get(0).getText();
         await movieCardTitles.get(0).click();
-        await browser.sleep(3000);
         titleOnDetailsPage = await movieDetailsTitle.getText();
         await expect(titleOnDetailsPage).toContain(titleOnHomePage);
+        browser.manage().timeouts().implicitlyWait(0);
     })
 })
