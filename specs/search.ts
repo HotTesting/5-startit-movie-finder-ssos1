@@ -1,36 +1,24 @@
 import { browser, $, $$, element, by} from 'protractor'
+import {HomePage} from "../pages/home";
 
 describe('Search ', async function(){
+    const homePage = new HomePage();
 
     it('by exisiting name, should show first movie with complete name match', async function(){
-        let movieCardTitles = $$('movie-card a');
-        let searchField = $('[name="searchStr"]');
-        let goButton = $('.input-group-btn button');
-        let searchResultGroup = $('movies > div:nth-child(3) > div').$$('movie-card').$$('a');
-        await browser.get('/');
-        let firstMovieName = await movieCardTitles.get(0).getText();
-        await browser.sleep(1000);
-        await searchField.sendKeys(firstMovieName);
-        await goButton.click();
-        await browser.sleep(1000);
-        let firstSearchedName = await searchResultGroup.get(0).getText();
-        expect(firstSearchedName).toEqual(firstMovieName);
+        await homePage.open();
+        let firstMovieName = await homePage.getMovieTitle(0);
+        await homePage.searchFor(firstMovieName);
+        let firstSearchedName = await homePage.getSearhedMovieTitle(0);
+        await expect(await firstSearchedName).toEqual(await firstMovieName);
     });
 
     it('results (all of them) should contain search request', async function(){
         let searchQuery = 'action';
-        let movieCardTitles = $$('movie-card a');
-        let searchField = $('[name="searchStr"]');
-        let goButton = $('.input-group-btn button');
-        await browser.get('/');
-        await browser.sleep(1000);
-        await searchField.sendKeys(searchQuery);
-        await goButton.click();
-        await browser.sleep(1000);
-        let searchResultGroup = $('movies > div:nth-child(3) > div').$$('movie-card').$$('h4 > a')
-            .asElementFinders_();
-        let searchResults : any = await searchResultGroup;
+        await homePage.open();
+        await homePage.searchFor(searchQuery);
+        let searchResults : any = await homePage.getSearchResultGroup();
         for (let searchElem of searchResults) {
+            //There defect in search results like 'double dare' search query for 'action'
             await expect((await searchElem.getText()).toLowerCase()).toContain(searchQuery)
         }
     });
