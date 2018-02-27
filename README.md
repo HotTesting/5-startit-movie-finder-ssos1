@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/StartITProtractorJS/5-startit-movie-finder-ssos1.svg?branch=master)](5-startit-movie-finder-ssos1)
+
 # startit movie finder
 Working project for startit students
 
