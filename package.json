@@ -9,10 +9,13 @@
     "test-travis": "protractor ./protractor.conf.js --seleniumAddress=\"http://ip-5236.sunline.net.ua:4444/wd/hub\""
   },
   "dependencies": {
-    "@types/node": "^9.3.0",
     "@types/jasmine": "^2.5.47",
-    "typescript": "^2.6.2",
+    "@types/node": "^9.3.0",
+    "jasmine-reporters": "^2.3.0",
+    "jasmine2-reporter": "^1.0.1",
+    "log4js": "^2.5.3",
+    "protractor": "^5.2.2",
     "ts-node": "^4.1.0",
-    "protractor": "^5.2.2"
+    "typescript": "^2.6.2"
   }
 }
